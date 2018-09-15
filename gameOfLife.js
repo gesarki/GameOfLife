@@ -5,6 +5,8 @@ var table = document.getElementById("boardTable");
 var NUMROWS = 15;
 var NUMCOLS = 15;
 
+var runId;
+
 // the 2d array that will be used to hold the states of every cell
 // and determine it's next generation
 // must initialize with all 0s
@@ -96,3 +98,35 @@ function countNeighbors(board, row, column) {
     neighbors -= cells[row][column]
     return neighbors;
 }
+
+// updates the cells 2d array and the html table 
+function updateBoard() {
+    cells = generate();
+    updateTable();
+}
+
+function run() {
+    pullTo2dArray();
+    updateBoard();
+    runId = setInterval(updateBoard, 500);
+}
+
+function pause() {
+    clearInterval(runId);
+}
+// updates the html table according to the cells 2d array
+function updateTable() {
+       
+    // get all tabledata elements
+    var tds = table.getElementsByTagName("td");
+
+    // loop through the cells and apply their value to the class name of the
+    // corresponding cell
+    for (var row = 0; row < NUMROWS; row++){
+        for (var col = 0; col < NUMCOLS; col++) {
+            // if value is 1 set className to alive, otherwise set it to ""
+            state = cells[row][col];
+            tds[row*15 + col].className = (state ? "alive" : "");
+        }
+    }
+} 
