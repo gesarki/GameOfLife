@@ -8,5 +8,8 @@ td {
     height: 1em;
 }
 td:hover {
-    background: lightgray;
+   background: lightgray;
+}
+td.alive {
+    background: black;
 }
