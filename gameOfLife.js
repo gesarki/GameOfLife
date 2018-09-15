@@ -53,3 +53,49 @@ function pullTo2dArray() {
         cells[y][x] = 1;
     }
 }
+
+// returns a 2d arrary representing the next generation of the board given the
+// rules: 
+// a live cell with 4 or more live neighbors dies
+// a live cells with 1 or fewer neighbours dies
+// a dead cell with exactly 3 neighbours births
+// cells remains the same otherwise
+function generate() {
+    var nextGen = [];
+
+    for (var i = 0; i < NUMROWS; i++) {
+        nextGen[i] = [];
+
+        for (var j = 0; j < NUMCOLS; j++) {
+            // count all 8 neighbours of the cell in the current gen
+            var neighbors = countNeighbors(cells, i, j);
+            var state = cells[i][j];
+            if (state == 0 && neighbors == 3) {
+                nextGen[i][j] = 1;
+            } else if (state == 1 && (neighbors <= 1 || neighbors >= 4)) {
+                nextGen[i][j] = 0;
+            } else {
+                nextGen[i][j] = state;
+            }
+
+        }
+
+
+    }
+    return nextGen;
+}
+
+// returns the amount of neighbours of a particular cell in a particular board
+function countNeighbors(board, row, column) {
+
+    var neighbors = 0;
+    
+    for (var i = -1; i <= 1; i++) {
+        for (var j = -1; j <= 1; j++) {
+                neighbors += board[(row+i+NUMROWS) % NUMROWS][(column+j+NUMCOLS)%NUMCOLS];
+        }
+    }
+    // minus the current cell's state because we counted it above^
+    neighbors -= cells[row][column]
+    return neighbors;
+}
