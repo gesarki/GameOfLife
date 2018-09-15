@@ -1,7 +1,7 @@
 # GameOfLife
 A simulation of Conway's Game of Life using only html, javascript and css
 
-##TO-DO
+## TO-DO
 - make the board with a table (
 - <td> class = "0" or "1"
 - click on cells to toggle dead/alive
