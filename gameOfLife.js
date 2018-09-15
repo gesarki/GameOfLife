@@ -116,7 +116,7 @@ function pause() {
 }
 // updates the html table according to the cells 2d array
 function updateTable() {
-       
+
     // get all tabledata elements
     var tds = table.getElementsByTagName("td");
 
@@ -129,4 +129,4 @@ function updateTable() {
             tds[row*15 + col].className = (state ? "alive" : "");
         }
     }
-} 
+}
